@@ -190,6 +190,7 @@ footer {
     nav ul {
         flex-direction: column;
         grid-template-columns: auto auto auto auto;
+        gap: -10px;
     }
 
     nav ul li {
