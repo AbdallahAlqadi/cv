@@ -290,7 +290,7 @@ footer {
     nav ul {
         flex-direction: column;
         display: grid;
-       grid-template-columns: auto auto;
+       grid-template-columns: auto auto auto auto;
     }
 
     nav ul li {
@@ -321,7 +321,7 @@ footer {
     nav ul {
         flex-direction: column;
         display: grid;
-       grid-template-columns: auto auto;
+       grid-template-columns: auto auto auto auto; 
     }
 
     nav ul li {
