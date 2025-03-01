@@ -1,339 +1,436 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title id="page-title" data-ar="السيرة الذاتية - اسمك" data-en="CV - Your Name">السيرة الذاتية - اسمك</title>
-  <link href="https://fonts.googleapis.com/css?family=Cairo:400,700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Professional CV</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* إعادة تعيين الأنماط الأساسية */
+    :root {
+      --primary-color: #007BFF;
+      --secondary-color: #0056b3;
+      --bg-color: #f0f2f5;
+      --card-bg: #ffffff;
+      --text-color: #333;
+      --header-bg: linear-gradient(135deg, #007BFF, #0056b3);
+    }
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
     body {
-      font-family: 'Cairo', sans-serif;
-      background-color: #f0f2f5;
-      color: #333;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       line-height: 1.6;
-      transition: background 0.3s, color 0.3s;
     }
-    .cv-container {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 1200px;
-      margin: 40px auto;
-      background: #fff;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      overflow: hidden;
+    /* Arabic font for Arabic version */
+    .ar {
+      font-family: 'Cairo', sans-serif;
+      direction: rtl;
+      text-align: right;
     }
-    /* الشريط الجانبي */
-    .sidebar {
-      background: #2C3E50;
-      color: #fff;
-      width: 100%;
-      max-width: 350px;
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .sidebar .profile {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .sidebar .profile img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 4px solid #fff;
-    }
-    .sidebar .profile h2 {
-      margin-top: 15px;
-      font-size: 1.8rem;
-    }
-    .sidebar .profile p {
-      font-size: 1rem;
-      opacity: 0.9;
-    }
-    .sidebar .contact-info, .sidebar .skills {
-      width: 100%;
-      margin-bottom: 30px;
-    }
-    .sidebar .contact-info h3,
-    .sidebar .skills h3 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.3);
-      padding-bottom: 5px;
-    }
-    .sidebar .contact-info ul,
-    .sidebar .skills ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    .sidebar .contact-info li,
-    .sidebar .skills li {
-      margin-bottom: 10px;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-    }
-    .sidebar .contact-info li span:last-child,
-    .sidebar .skills li span:last-child {
-      margin-left: 10px;
-    }
-    .sidebar .skills .skill-bar {
-      background: rgba(255,255,255,0.3);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 5px;
-    }
-    .sidebar .skills .skill-bar div {
-      height: 8px;
-      background: #1ABC9C;
-      width: 0;
-      transition: width 1.5s ease;
-    }
-    .sidebar .controls {
-      margin-top: auto;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .sidebar button {
-      flex: 1;
-      border: none;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      font-size: 0.95rem;
-    }
-    .toggle-theme {
-      background: #1ABC9C;
-    }
-    .toggle-theme:hover {
-      background: #16a085;
-    }
+    /* زر تبديل اللغة */
     .toggle-lang {
-      background: #E67E22;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      z-index: 1000;
+      transition: background-color 0.3s;
     }
     .toggle-lang:hover {
-      background: #D35400;
+      background-color: var(--secondary-color);
     }
-    /* المحتوى الرئيسي */
-    .main-content {
-      flex: 1;
-      padding: 30px;
+    /* الهيدر */
+    header {
+      text-align: center;
+      padding: 80px 20px 40px;
+      background: var(--header-bg);
+      color: #fff;
     }
-    .main-content .section {
-      margin-bottom: 40px;
+    header h1 {
+      font-size: 3.5rem;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
     }
-    .main-content .section h3 {
-      font-size: 1.6rem;
-      margin-bottom: 15px;
-      color: #2C3E50;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 5px;
-    }
-    .main-content .item {
+    header p {
+      font-size: 1.2rem;
       margin-bottom: 20px;
     }
-    .main-content .item h4 {
-      font-size: 1.3rem;
-      color: #1ABC9C;
-      margin-bottom: 5px;
+    .profile-container {
+      display: flex;
+      justify-content: center;
     }
-    .main-content .item span {
-      font-size: 0.9rem;
-      color: #777;
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      object-fit: cover;
     }
-    .main-content .item p {
-      margin-top: 10px;
-      text-align: justify;
+    /* Navbar - يبقى كما هو */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 15px 0;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    /* تصميم متجاوب */
+    nav a {
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 600;
+      padding: 8px 12px;
+      transition: color 0.3s, background-color 0.3s;
+    }
+    nav a:hover {
+      color: #fff;
+      background-color: var(--primary-color);
+      border-radius: 4px;
+    }
+    /* الحاوية الرئيسية */
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    /* أقسام الصفحة */
+    section {
+      margin-bottom: 40px;
+    }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .section-title i {
+      margin-right: 10px;
+      color: var(--primary-color);
+    }
+    .ar .section-title i {
+      margin-left: 10px;
+      margin-right: 0;
+    }
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+    .section-card:hover {
+      transform: translateY(-3px);
+    }
+    .content p {
+      margin: 0 0 15px;
+    }
+    /* تصميم الجدول الزمني لقسم التعليم */
+    .timeline {
+      position: relative;
+      margin: 20px 0;
+      padding-left: 30px;
+      border-left: 2px solid var(--primary-color);
+    }
+    .timeline-item {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -9px;
+      top: 0;
+      width: 16px;
+      height: 16px;
+      background: var(--card-bg);
+      border: 3px solid var(--primary-color);
+      border-radius: 50%;
+    }
+    /* تصميم شبكة المهارات */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+    }
+    /* تعديل صندوق المهارة الأساسي */
+    .skills-grid .skill-box {
+      color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      transition: transform 0.3s, filter 0.3s;
+    }
+    /* تأثير عند التمرير */
+    .skills-grid .skill-box:hover {
+      transform: translateY(-5px);
+      filter: brightness(90%);
+    }
+    /* تعيين ألوان مختلفة لكل صندوق */
+    .skills-grid .skill-box:nth-child(1) {
+      background-color: #e74c3c;
+    }
+    .skills-grid .skill-box:nth-child(2) {
+      background-color: #3498db;
+    }
+    .skills-grid .skill-box:nth-child(3) {
+      background-color: #2ecc71;
+    }
+    .skills-grid .skill-box:nth-child(4) {
+      background-color: #9b59b6;
+    }
+    .skills-grid .skill-box:nth-child(5) {
+      background-color: #f39c12;
+    }
+    .skills-grid .skill-box:nth-child(6) {
+      background-color: #e67e22;
+    }
+    .skills-grid .skill-box:nth-child(7) {
+      background-color: #1abc9c;
+    }
+    .skills-grid .skill-box:nth-child(8) {
+      background-color: #34495e;
+    }
+    /* استجابة التصميم */
     @media (max-width: 768px) {
-      .cv-container {
+      header h1 {
+        font-size: 2.8rem;
+      }
+      nav {
         flex-direction: column;
       }
-      .sidebar {
-        max-width: 100%;
-      }
-    }
-    /* أنماط الوضع الداكن */
-    .dark-theme body {
-      background-color: #222;
-      color: #ddd;
-    }
-    .dark-theme .cv-container {
-      background: #333;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-    .dark-theme .sidebar {
-      background: #1a252f;
-    }
-    .dark-theme .main-content .section h3 {
-      color: #1ABC9C;
     }
   </style>
 </head>
 <body>
-  <div class="cv-container">
-    <!-- الشريط الجانبي -->
-    <aside class="sidebar">
-      <div class="profile">
-        <img src="data:image/png;base64,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" alt="صورة الملف الشخصي">
-        <h2 data-ar="اسمك الكامل" data-en="Your Full Name">اسمك الكامل</h2>
-        <p data-ar="المسمى الوظيفي" data-en="Job Title">المسمى الوظيفي</p>
+  <button class="toggle-lang" onclick="toggleLanguage()">عربي / English</button>
+  
+  <!-- النسخة الإنجليزية -->
+  <div class="en">
+    <header>
+      <h1>Abdallah Alqadi</h1>
+      <p>Creative Web Developer & Designer</p>
+      <div class="profile-container">
+        <img class="profile-img" src="https://th.bing.com/th/id/R.a031bc500d6df61853b30dfea1ab8631?rik=JMu3f7HC68letA&pid=ImgRaw&r=0" alt="Profile Picture">
       </div>
-      <div class="contact-info">
-        <h3 data-ar="معلومات الاتصال" data-en="Contact Info">معلومات الاتصال</h3>
-        <ul>
-          <li><span>📧</span> akalqadi20@cit.just.edu.jo</li>
-          <li><span>📞</span> 0790946125</li>
-          <li><span>📍</span> <span data-ar="اربد, الاردن" data-en="IRBID, JORDAN">الاردن، اربد</span></li>
-        </ul>
-      </div>
-      <div class="skills">
-        <h3 data-ar="المهارات" data-en="Skills">المهارات</h3>
-        <ul>
-          <li>
-            HTML & CSS
-            <div class="skill-bar"><div data-level="90%"></div></div>
-          </li>
-          <li>
-            JavaScript
-            <div class="skill-bar"><div data-level="80%"></div></div>
-          </li>
-          <li>
-            React Js
-            <div class="skill-bar"><div data-level="85%"></div></div>
-          </li>
-          <li>
-            Node Js
-            <div class="skill-bar"><div data-level="85%"></div></div>
-          </li>
-        </ul>
-      </div>
-      <div class="controls">
-        <button class="toggle-theme" onclick="toggleTheme()" data-ar="تبديل الوضع" data-en="Toggle Theme">تبديل الوضع</button>
-        <button class="toggle-lang" onclick="toggleLanguage()" data-ar="تبديل اللغة" data-en="Switch Language">تبديل اللغة</button>
-      </div>
-    </aside>
-    <!-- المحتوى الرئيسي -->
-    <main class="main-content">
-      <div class="section">
-        <h3 data-ar="الملخص" data-en="Summary">الملخص</h3>
-        <p data-ar="ملخص قصير عنك وعن خبراتك وأهدافك المهنية. استخدم هذه الفقرة لجذب انتباه القارئ وإبراز نقاط قوتك."
-           data-en="A short summary about you, your experience, and your career objectives. Use this paragraph to capture the reader's attention and highlight your strengths.">
-           ملخص قصير عنك وعن خبراتك وأهدافك المهنية. استخدم هذه الفقرة لجذب انتباه القارئ وإبراز نقاط قوتك.
-        </p>
-      </div>
-      <div class="section">
-        <h3 data-ar="الخبرات العملية" data-en="Work Experience">الخبرات العملية</h3>
-        <div class="item">
-          <h4 data-ar="اسم الشركة" data-en="Company Name">اسم الشركة</h4>
-          <span data-ar="المسمى الوظيفي | من سنة إلى سنة" data-en="Job Title | From Year to Year">المسمى الوظيفي | من سنة إلى سنة</span>
-          <p data-ar="وصف مختصر للمهام والإنجازات في هذه الوظيفة مع إبراز النتائج والأداء المتميز."
-             data-en="A brief description of your responsibilities and achievements in this role, highlighting results and exceptional performance.">
-             وصف مختصر للمهام والإنجازات في هذه الوظيفة مع إبراز النتائج والأداء المتميز.
-          </p>
+    </header>
+    <nav>
+      <a href="#about-en">About</a>
+      <a href="#experience-en">Experience</a>
+      <a href="#education-en">Education</a>
+      <a href="#skills-en">Skills</a>
+      <a href="#contact-en">Contact</a>
+      <a href="#projects-en">Projects</a>
+      <a href="#certifications-en">Certifications</a>
+    </nav>
+    <div class="container">
+      <section id="about-en">
+        <div class="section-title"><i class="fas fa-user"></i> About Me</div>
+        <div class="section-card">
+          <div class="content">
+            <p>Passionate web developer with 5+ years of experience in creating dynamic, user-friendly websites. Skilled in HTML, CSS, JavaScript, and modern design techniques.</p>
+          </div>
         </div>
-        <div class="item">
-          <h4 data-ar="اسم الشركة السابقة" data-en="Previous Company Name">اسم الشركة السابقة</h4>
-          <span data-ar="المسمى الوظيفي | من سنة إلى سنة" data-en="Job Title | From Year to Year">المسمى الوظيفي | من سنة إلى سنة</span>
-          <p data-ar="تفاصيل حول المسؤوليات والمهام التي قمت بها مع توضيح المشاريع المهمة والنجاحات التي حققتها."
-             data-en="Details about your responsibilities and tasks, along with significant projects and successes achieved.">
-             تفاصيل حول المسؤوليات والمهام التي قمت بها مع توضيح المشاريع المهمة والنجاحات التي حققتها.
-          </p>
+      </section>
+      <section id="experience-en">
+        <div class="section-title"><i class="fas fa-briefcase"></i> Experience</div>
+        <div class="section-card">
+          <div class="content">
+            <p><strong>Senior Web Developer at XYZ Company</strong> (2018 - Present)</p>
+            <p>Leading a team in designing responsive and innovative web solutions.</p>
+            <p><strong>Web Developer at ABC Solutions</strong> (2015 - 2018)</p>
+            <p>Worked on multiple projects enhancing UI/UX and optimizing performance.</p>
+          </div>
         </div>
-      </div>
-      <div class="section">
-        <h3 data-ar="التعليم" data-en="Education">التعليم</h3>
-        <div class="item">
-          <h4 data-ar="اسم الجامعة / المدرسة" data-en="University / School Name">اسم الجامعة / المدرسة</h4>
-          <span data-ar="الدرجة العلمية | من سنة إلى سنة" data-en="Degree | From Year to Year">الدرجة العلمية | من سنة إلى سنة</span>
-          <p data-ar="تفاصيل حول التخصصات والدورات المهمة التي تم دراستها خلال فترة التعليم."
-             data-en="Details about major subjects and significant courses studied during your education.">
-             تفاصيل حول التخصصات والدورات المهمة التي تم دراستها خلال فترة التعليم.
-          </p>
+      </section>
+      <section id="education-en">
+        <div class="section-title"><i class="fas fa-graduation-cap"></i> Education</div>
+        <div class="section-card">
+          <div class="content">
+            <div class="timeline">
+              <div class="timeline-item">
+                <h3>Bachelor's in Computer Science</h3>
+                <p>University of Technology, 2015</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="section">
-        <h3 data-ar="الشهادات والدورات" data-en="Certifications and Courses">الشهادات والدورات</h3>
-        <div class="item">
-          <h4 data-ar="اسم الشهادة أو الدورة" data-en="Certification or Course Name">اسم الشهادة أو الدورة</h4>
-          <span data-ar="المصدر | سنة الحصول عليها" data-en="Issuing Organization | Year Obtained">المصدر | سنة الحصول عليها</span>
-          <p data-ar="تفاصيل مختصرة عن الدورة أو الشهادة وما تم تعلمه منها."
-             data-en="A brief overview of the certification or course and the skills acquired.">
-             تفاصيل مختصرة عن الدورة أو الشهادة وما تم تعلمه منها.
-          </p>
+      </section>
+      <section id="skills-en">
+        <div class="section-title"><i class="fas fa-code"></i> Skills</div>
+        <div class="section-card">
+          <div class="content">
+            <div class="skills-grid">
+              <div class="skill-box">HTML5</div>
+              <div class="skill-box">CSS3</div>
+              <div class="skill-box">JavaScript</div>
+              <div class="skill-box">React</div>
+              <div class="skill-box">Node.js</div>
+              <div class="skill-box">CSS Animations</div>
+              <div class="skill-box">Responsive Design</div>
+              <div class="skill-box">UX/UI Design</div>
+            </div>
+          </div>
         </div>
-      </div>
-    </main>
+      </section>
+      <section id="contact-en">
+        <div class="section-title"><i class="fas fa-envelope"></i> Contact</div>
+        <div class="section-card">
+          <div class="content">
+            <p>Email: john.doe@example.com</p>
+            <p>Phone: +1234567890</p>
+            <p>LinkedIn: linkedin.com/in/johndoe</p>
+          </div>
+        </div>
+      </section>
+      <section id="projects-en">
+        <div class="section-title"><i class="fas fa-project-diagram"></i> Projects</div>
+        <div class="section-card">
+          <div class="content">
+            <p><strong>Project A:</strong> Developed an innovative web application using React and Node.js, integrating real-time data and advanced animations.</p>
+            <p><strong>Project B:</strong> Created an e-commerce platform with a focus on responsive design and seamless user experience.</p>
+          </div>
+        </div>
+      </section>
+      <section id="certifications-en">
+        <div class="section-title"><i class="fas fa-certificate"></i> Certifications</div>
+        <div class="section-card">
+          <div class="content">
+            <p>Certified Web Developer by XYZ Institute</p>
+            <p>Advanced JavaScript Certificate from ABC Academy</p>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
+  
+  <!-- النسخة العربية -->
+  <div class="ar">
+    <header>
+      <h1> عبدالله القاي</h1>
+      <p>مطور ويب ومصمم مبدع</p>
+      <div class="profile-container">
+        <img class="profile-img" src="https://th.bing.com/th/id/R.a031bc500d6df61853b30dfea1ab8631?rik=JMu3f7HC68letA&pid=ImgRaw&r=0" alt="صورة الملف الشخصي">
+      </div>
+    </header>
+    <nav>
+      <a href="#about-ar">من أنا</a>
+      <a href="#experience-ar">الخبرة</a>
+      <a href="#education-ar">التعليم</a>
+      <a href="#skills-ar">المهارات</a>
+      <a href="#contact-ar">الاتصال</a>
+      <a href="#projects-ar">المشاريع</a>
+      <a href="#certifications-ar">الشهادات</a>
+    </nav>
+    <div class="container">
+      <section id="about-ar">
+        <div class="section-title"><i class="fas fa-user"></i> من أنا</div>
+        <div class="section-card">
+          <div class="content">
+            <p>مطور ويب شغوف يمتلك خبرة تزيد عن 5 سنوات في تصميم وتطوير مواقع تفاعلية وسهلة الاستخدام. ماهر في HTML، CSS، JavaScript وتقنيات التصميم الحديثة.</p>
+          </div>
+        </div>
+      </section>
+      <section id="experience-ar">
+        <div class="section-title"><i class="fas fa-briefcase"></i> الخبرة</div>
+        <div class="section-card">
+          <div class="content">
+            <p><strong>مطور ويب أول في شركة XYZ</strong> (2018 - حتى الآن)</p>
+            <p>قيادة فريق المطورين لتقديم حلول ويب مبتكرة وتفاعلية.</p>
+            <p><strong>مطور ويب في شركة ABC للحلول</strong> (2015 - 2018)</p>
+            <p>المشاركة في عدة مشاريع لتحسين واجهات المستخدم وزيادة الأداء.</p>
+          </div>
+        </div>
+      </section>
+      <section id="education-ar">
+        <div class="section-title"><i class="fas fa-graduation-cap"></i> التعليم</div>
+        <div class="section-card">
+          <div class="content">
+            <div class="timeline">
+              <div class="timeline-item">
+                <h3>بكالوريوس في علوم الحاسب</h3>
+                <p>جامعة التكنولوجيا، 2015</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="skills-ar">
+        <div class="section-title"><i class="fas fa-code"></i> المهارات</div>
+        <div class="section-card">
+          <div class="content">
+            <div class="skills-grid">
+              <div class="skill-box">HTML5</div>
+              <div class="skill-box">CSS3</div>
+              <div class="skill-box">JavaScript</div>
+              <div class="skill-box">React</div>
+              <div class="skill-box">Node.js</div>
+              <div class="skill-box">تأثيرات CSS</div>
+              <div class="skill-box">تصميم متجاوب</div>
+              <div class="skill-box">تصميم UX/UI</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="contact-ar">
+        <div class="section-title"><i class="fas fa-envelope"></i> الاتصال</div>
+        <div class="section-card">
+          <div class="content">
+            <p>البريد الإلكتروني: john.doe@example.com</p>
+            <p>الهاتف: +1234567890</p>
+            <p>لينكدإن: linkedin.com/in/johndoe</p>
+          </div>
+        </div>
+      </section>
+      <section id="projects-ar">
+        <div class="section-title"><i class="fas fa-project-diagram"></i> المشاريع</div>
+        <div class="section-card">
+          <div class="content">
+            <p><strong>المشروع أ:</strong> تم تطوير تطبيق ويب مبتكر باستخدام React و Node.js مع دمج البيانات الفعلية وتأثيرات متقدمة.</p>
+            <p><strong>المشروع ب:</strong> إنشاء منصة للتجارة الإلكترونية مع التركيز على تصميم متجاوب وتجربة مستخدم سلسة.</p>
+          </div>
+        </div>
+      </section>
+      <section id="certifications-ar">
+        <div class="section-title"><i class="fas fa-certificate"></i> الشهادات</div>
+        <div class="section-card">
+          <div class="content">
+            <p>شهادة مطور ويب معتمد من معهد XYZ</p>
+            <p>شهادة JavaScript متقدمة من أكاديمية ABC</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  
   <script>
-    // دالة لتطبيق الثيم وتحديث الواجهة
-    function applyTheme(theme) {
-      if (theme === 'dark') {
-        document.body.classList.add("dark-theme");
-      } else {
-        document.body.classList.remove("dark-theme");
-      }
-      // تحديث نص الزر وفقًا للثيم الحالي
-      const themeButton = document.querySelector('.toggle-theme');
-      if (themeButton) {
-        themeButton.innerText = theme === 'dark' ? 'الوضع الفاتح' : 'الوضع الداكن';
-      }
-    }
-  
-    // تهيئة الثيم بناءً على تفضيل المستخدم أو إعدادات النظام
-    function initTheme() {
-      let savedTheme = localStorage.getItem('theme');
-      if (!savedTheme) {
-        // في حالة عدم وجود تفضيل محفوظ، نستخدم تفضيل النظام
-        savedTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
-      applyTheme(savedTheme);
-    }
-  
-    // دالة تبديل الثيم مع حفظ التفضيل الجديد
-    function toggleTheme() {
-      const currentTheme = document.body.classList.contains("dark-theme") ? 'dark' : 'light';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      applyTheme(newTheme);
-      localStorage.setItem('theme', newTheme);
-    }
-  
-    // دالة تبديل اللغة (كما في الكود الأصلي)
-    let currentLang = 'ar';
     function toggleLanguage() {
-      currentLang = currentLang === 'ar' ? 'en' : 'ar';
-      const pageTitle = document.querySelector('title');
-      if (pageTitle) {
-        pageTitle.innerText = pageTitle.getAttribute('data-' + currentLang);
+      var enSection = document.querySelector('.en');
+      var arSection = document.querySelector('.ar');
+      if (enSection.style.display === 'none' || enSection.style.display === '') {
+        enSection.style.display = 'block';
+        arSection.style.display = 'none';
+      } else {
+        enSection.style.display = 'none';
+        arSection.style.display = 'block';
       }
-      document.querySelectorAll('[data-ar]').forEach(function(el) {
-        el.innerText = el.getAttribute('data-' + currentLang);
-      });
-      document.documentElement.setAttribute('lang', currentLang);
     }
-  
-    // عند تحميل الصفحة، نهيئ الثيم ونقوم بتحريك مؤشرات المهارات
-    window.addEventListener('load', function() {
-      initTheme();
-      document.querySelectorAll('.skill-bar div').forEach(function(el) {
-        const level = el.getAttribute('data-level');
-        el.style.width = level;
-      });
-    });
+    // عرض النسخة الإنجليزية بشكل افتراضي
+    document.querySelector('.en').style.display = 'block';
+    document.querySelector('.ar').style.display = 'none';
   </script>
-  
-</body>
-</html>
+</bod
