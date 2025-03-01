@@ -1,74 +1,339 @@
 <!DOCTYPE html>
 <html lang="ar">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-    <link rel="stylesheet" href="index.css">
-
-    <title>CV</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="page-title" data-ar="السيرة الذاتية - اسمك" data-en="CV - Your Name">السيرة الذاتية - اسمك</title>
+  <link href="https://fonts.googleapis.com/css?family=Cairo:400,700&display=swap" rel="stylesheet">
+  <style>
+    /* إعادة تعيين الأنماط الأساسية */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .cv-container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 40px auto;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    /* الشريط الجانبي */
+    .sidebar {
+      background: #2C3E50;
+      color: #fff;
+      width: 100%;
+      max-width: 350px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .sidebar .profile {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .sidebar .profile img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+    }
+    .sidebar .profile h2 {
+      margin-top: 15px;
+      font-size: 1.8rem;
+    }
+    .sidebar .profile p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    .sidebar .contact-info, .sidebar .skills {
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    .sidebar .contact-info h3,
+    .sidebar .skills h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      padding-bottom: 5px;
+    }
+    .sidebar .contact-info ul,
+    .sidebar .skills ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .sidebar .contact-info li,
+    .sidebar .skills li {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+    }
+    .sidebar .contact-info li span:last-child,
+    .sidebar .skills li span:last-child {
+      margin-left: 10px;
+    }
+    .sidebar .skills .skill-bar {
+      background: rgba(255,255,255,0.3);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 5px;
+    }
+    .sidebar .skills .skill-bar div {
+      height: 8px;
+      background: #1ABC9C;
+      width: 0;
+      transition: width 1.5s ease;
+    }
+    .sidebar .controls {
+      margin-top: auto;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .sidebar button {
+      flex: 1;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-size: 0.95rem;
+    }
+    .toggle-theme {
+      background: #1ABC9C;
+    }
+    .toggle-theme:hover {
+      background: #16a085;
+    }
+    .toggle-lang {
+      background: #E67E22;
+    }
+    .toggle-lang:hover {
+      background: #D35400;
+    }
+    /* المحتوى الرئيسي */
+    .main-content {
+      flex: 1;
+      padding: 30px;
+    }
+    .main-content .section {
+      margin-bottom: 40px;
+    }
+    .main-content .section h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: #2C3E50;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 5px;
+    }
+    .main-content .item {
+      margin-bottom: 20px;
+    }
+    .main-content .item h4 {
+      font-size: 1.3rem;
+      color: #1ABC9C;
+      margin-bottom: 5px;
+    }
+    .main-content .item span {
+      font-size: 0.9rem;
+      color: #777;
+    }
+    .main-content .item p {
+      margin-top: 10px;
+      text-align: justify;
+    }
+    /* تصميم متجاوب */
+    @media (max-width: 768px) {
+      .cv-container {
+        flex-direction: column;
+      }
+      .sidebar {
+        max-width: 100%;
+      }
+    }
+    /* أنماط الوضع الداكن */
+    .dark-theme body {
+      background-color: #222;
+      color: #ddd;
+    }
+    .dark-theme .cv-container {
+      background: #333;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .dark-theme .sidebar {
+      background: #1a252f;
+    }
+    .dark-theme .main-content .section h3 {
+      color: #1ABC9C;
+    }
+  </style>
 </head>
-
 <body>
-    <header>
-        <div class="header-content">
-            <h1>Ahmad Rafiq</h1>
-            <p>Software Engineering</p>
-        </div>
-    </header>
-
-    <nav>
+  <div class="cv-container">
+    <!-- الشريط الجانبي -->
+    <aside class="sidebar">
+      <div class="profile">
+        <img src="data:image/png;base64,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" alt="صورة الملف الشخصي">
+        <h2 data-ar="اسمك الكامل" data-en="Your Full Name">اسمك الكامل</h2>
+        <p data-ar="المسمى الوظيفي" data-en="Job Title">المسمى الوظيفي</p>
+      </div>
+      <div class="contact-info">
+        <h3 data-ar="معلومات الاتصال" data-en="Contact Info">معلومات الاتصال</h3>
         <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#experience"> Experience</a></li>
-            <li   style="margin-left: -10%;"><a href="#projects" >Projects</a></li>
+          <li><span>📧</span> akalqadi20@cit.just.edu.jo</li>
+          <li><span>📞</span> 0790946125</li>
+          <li><span>📍</span> <span data-ar="اربد, الاردن" data-en="IRBID, JORDAN">الاردن، اربد</span></li>
         </ul>
-    </nav>
-
-    <section id="about" style="width: 80%;">
-        <h2 style="color: #2196f3;">About</h2>
-<p>I am a software engineer with experience in web development using HTML, CSS, and JavaScript. I enjoy working on innovative projects and learning new technologies.</p>   
- </section>
-
-    <section id="skills" style="width: 80%;">
-        <h2  style="color: #2196f3;">Skills</h2>
-
-        <ul class="skills-list">
-            <li style="background-color: #ff9800;">HTML</li>
-<li>CSS</li>
-<li style="background-color: #ffeb3b;">JavaScript</li>
-<li style="background-color: #2196f3;">React.js</li>
-<li style="background-color: #4caf50;">Node.js</li>
-
+      </div>
+      <div class="skills">
+        <h3 data-ar="المهارات" data-en="Skills">المهارات</h3>
+        <ul>
+          <li>
+            HTML & CSS
+            <div class="skill-bar"><div data-level="90%"></div></div>
+          </li>
+          <li>
+            JavaScript
+            <div class="skill-bar"><div data-level="80%"></div></div>
+          </li>
+          <li>
+            React Js
+            <div class="skill-bar"><div data-level="85%"></div></div>
+          </li>
+          <li>
+            Node Js
+            <div class="skill-bar"><div data-level="85%"></div></div>
+          </li>
         </ul>
-    </section>
-
-    <section id="experience" style="width: 80%;">
-        <h2 style="color: #2196f3;">Experience</h2>
-        <div class="job">
-            <h3>Company XYZ</h3>
-            <p> Software engineering (2020 - حتى الآن)</p>
-            <p>Working on website development, updates, and improving user experience.</p>
+      </div>
+      <div class="controls">
+        <button class="toggle-theme" onclick="toggleTheme()" data-ar="تبديل الوضع" data-en="Toggle Theme">تبديل الوضع</button>
+        <button class="toggle-lang" onclick="toggleLanguage()" data-ar="تبديل اللغة" data-en="Switch Language">تبديل اللغة</button>
+      </div>
+    </aside>
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+      <div class="section">
+        <h3 data-ar="الملخص" data-en="Summary">الملخص</h3>
+        <p data-ar="ملخص قصير عنك وعن خبراتك وأهدافك المهنية. استخدم هذه الفقرة لجذب انتباه القارئ وإبراز نقاط قوتك."
+           data-en="A short summary about you, your experience, and your career objectives. Use this paragraph to capture the reader's attention and highlight your strengths.">
+           ملخص قصير عنك وعن خبراتك وأهدافك المهنية. استخدم هذه الفقرة لجذب انتباه القارئ وإبراز نقاط قوتك.
+        </p>
+      </div>
+      <div class="section">
+        <h3 data-ar="الخبرات العملية" data-en="Work Experience">الخبرات العملية</h3>
+        <div class="item">
+          <h4 data-ar="اسم الشركة" data-en="Company Name">اسم الشركة</h4>
+          <span data-ar="المسمى الوظيفي | من سنة إلى سنة" data-en="Job Title | From Year to Year">المسمى الوظيفي | من سنة إلى سنة</span>
+          <p data-ar="وصف مختصر للمهام والإنجازات في هذه الوظيفة مع إبراز النتائج والأداء المتميز."
+             data-en="A brief description of your responsibilities and achievements in this role, highlighting results and exceptional performance.">
+             وصف مختصر للمهام والإنجازات في هذه الوظيفة مع إبراز النتائج والأداء المتميز.
+          </p>
         </div>
-    </section>
-
-    <section id="projects" style="width: 80%;">
-        <h2  style="color: #2196f3;">Projects</h2>
-
-        <div class="project">
-            <h3>Task Management Project</h3>
-            <p>A web application that helps users organize their tasks using modern technologies such as React and Node.js.</p>
+        <div class="item">
+          <h4 data-ar="اسم الشركة السابقة" data-en="Previous Company Name">اسم الشركة السابقة</h4>
+          <span data-ar="المسمى الوظيفي | من سنة إلى سنة" data-en="Job Title | From Year to Year">المسمى الوظيفي | من سنة إلى سنة</span>
+          <p data-ar="تفاصيل حول المسؤوليات والمهام التي قمت بها مع توضيح المشاريع المهمة والنجاحات التي حققتها."
+             data-en="Details about your responsibilities and tasks, along with significant projects and successes achieved.">
+             تفاصيل حول المسؤوليات والمهام التي قمت بها مع توضيح المشاريع المهمة والنجاحات التي حققتها.
+          </p>
         </div>
-    </section>
-
-    <footer>
-        <p>&copy;CV 2024 </p>
-    </footer>
-
-    <script src="index.js"></script>
+      </div>
+      <div class="section">
+        <h3 data-ar="التعليم" data-en="Education">التعليم</h3>
+        <div class="item">
+          <h4 data-ar="اسم الجامعة / المدرسة" data-en="University / School Name">اسم الجامعة / المدرسة</h4>
+          <span data-ar="الدرجة العلمية | من سنة إلى سنة" data-en="Degree | From Year to Year">الدرجة العلمية | من سنة إلى سنة</span>
+          <p data-ar="تفاصيل حول التخصصات والدورات المهمة التي تم دراستها خلال فترة التعليم."
+             data-en="Details about major subjects and significant courses studied during your education.">
+             تفاصيل حول التخصصات والدورات المهمة التي تم دراستها خلال فترة التعليم.
+          </p>
+        </div>
+      </div>
+      <div class="section">
+        <h3 data-ar="الشهادات والدورات" data-en="Certifications and Courses">الشهادات والدورات</h3>
+        <div class="item">
+          <h4 data-ar="اسم الشهادة أو الدورة" data-en="Certification or Course Name">اسم الشهادة أو الدورة</h4>
+          <span data-ar="المصدر | سنة الحصول عليها" data-en="Issuing Organization | Year Obtained">المصدر | سنة الحصول عليها</span>
+          <p data-ar="تفاصيل مختصرة عن الدورة أو الشهادة وما تم تعلمه منها."
+             data-en="A brief overview of the certification or course and the skills acquired.">
+             تفاصيل مختصرة عن الدورة أو الشهادة وما تم تعلمه منها.
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    // دالة لتطبيق الثيم وتحديث الواجهة
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.body.classList.add("dark-theme");
+      } else {
+        document.body.classList.remove("dark-theme");
+      }
+      // تحديث نص الزر وفقًا للثيم الحالي
+      const themeButton = document.querySelector('.toggle-theme');
+      if (themeButton) {
+        themeButton.innerText = theme === 'dark' ? 'الوضع الفاتح' : 'الوضع الداكن';
+      }
+    }
+  
+    // تهيئة الثيم بناءً على تفضيل المستخدم أو إعدادات النظام
+    function initTheme() {
+      let savedTheme = localStorage.getItem('theme');
+      if (!savedTheme) {
+        // في حالة عدم وجود تفضيل محفوظ، نستخدم تفضيل النظام
+        savedTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      applyTheme(savedTheme);
+    }
+  
+    // دالة تبديل الثيم مع حفظ التفضيل الجديد
+    function toggleTheme() {
+      const currentTheme = document.body.classList.contains("dark-theme") ? 'dark' : 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+  
+    // دالة تبديل اللغة (كما في الكود الأصلي)
+    let currentLang = 'ar';
+    function toggleLanguage() {
+      currentLang = currentLang === 'ar' ? 'en' : 'ar';
+      const pageTitle = document.querySelector('title');
+      if (pageTitle) {
+        pageTitle.innerText = pageTitle.getAttribute('data-' + currentLang);
+      }
+      document.querySelectorAll('[data-ar]').forEach(function(el) {
+        el.innerText = el.getAttribute('data-' + currentLang);
+      });
+      document.documentElement.setAttribute('lang', currentLang);
+    }
+  
+    // عند تحميل الصفحة، نهيئ الثيم ونقوم بتحريك مؤشرات المهارات
+    window.addEventListener('load', function() {
+      initTheme();
+      document.querySelectorAll('.skill-bar div').forEach(function(el) {
+        const level = el.getAttribute('data-level');
+        el.style.width = level;
+      });
+    });
+  </script>
+  
 </body>
-
 </html>
