@@ -1,443 +1,1159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Professional CV</title>
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-color: #007BFF;
-      --secondary-color: #0056b3;
-      --bg-color: #f0f2f5;
-      --card-bg: #ffffff;
-      --text-color: #333;
-      --header-bg: linear-gradient(135deg, #007BFF, #0056b3);
-    }
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-    }
-    /* Arabic font for Arabic version */
-    .ar {
-      font-family: 'Cairo', sans-serif;
-      direction: rtl;
-      text-align: right;
-    }
-    /* زر تبديل اللغة - موضع أسفل الشاشة جهة اليمين وبشكل دائري */
-    .toggle-lang {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: var(--primary-color);
-      color: #fff;
-      border: none;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 0.9rem;
-      z-index: 1000;
-      transition: background-color 0.3s, transform 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    .toggle-lang:hover {
-      background-color: var(--secondary-color);
-      transform: scale(1.05);
-    }
-    /* الهيدر */
-    header {
-      text-align: center;
-      padding: 80px 20px 40px;
-      background: var(--header-bg);
-      color: #fff;
-    }
-    header h1 {
-      font-size: 3.5rem;
-      margin-bottom: 10px;
-      letter-spacing: 2px;
-    }
-    header p {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
-    .profile-container {
-      display: flex;
-      justify-content: center;
-    }
-    .profile-img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 4px solid #fff;
-      object-fit: cover;
-    }
-    /* Navbar - يبقى كما هو */
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      padding: 15px 0;
-      background: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    nav a {
-      text-decoration: none;
-      color: var(--primary-color);
-      font-weight: 600;
-      padding: 8px 12px;
-      transition: color 0.3s, background-color 0.3s;
-    }
-    nav a:hover {
-      color: #fff;
-      background-color: var(--primary-color);
-      border-radius: 4px;
-    }
-    /* الحاوية الرئيسية */
-    .container {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    /* أقسام الصفحة */
-    section {
-      margin-bottom: 40px;
-    }
-    .section-title {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      border-left: 4px solid var(--primary-color);
-      padding-left: 10px;
-      display: flex;
-      align-items: center;
-    }
-    .section-title i {
-      margin-right: 10px;
-      color: var(--primary-color);
-    }
-    .ar .section-title i {
-      margin-left: 10px;
-      margin-right: 0;
-    }
-    .section-card {
-      background: var(--card-bg);
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease;
-    }
-    .section-card:hover {
-      transform: translateY(-3px);
-    }
-    .content p {
-      margin: 0 0 15px;
-    }
-    /* تصميم الجدول الزمني لقسم التعليم */
-    .timeline {
-      position: relative;
-      margin: 20px 0;
-      padding-left: 30px;
-      border-left: 2px solid var(--primary-color);
-    }
-    .timeline-item {
-      margin-bottom: 20px;
-      position: relative;
-    }
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -9px;
-      top: 0;
-      width: 16px;
-      height: 16px;
-      background: var(--card-bg);
-      border: 3px solid var(--primary-color);
-      border-radius: 50%;
-    }
-    /* تصميم شبكة المهارات */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 20px;
-    }
-    /* تعديل صندوق المهارة الأساسي */
-    .skills-grid .skill-box {
-      color: #fff;
-      padding: 15px;
-      border-radius: 8px;
-      text-align: center;
-      font-weight: 600;
-      transition: transform 0.3s, filter 0.3s;
-    }
-    .skills-grid .skill-box:hover {
-      transform: translateY(-5px);
-      filter: brightness(90%);
-    }
-    /* ألوان مختلفة لكل صندوق */
-    .skills-grid .skill-box:nth-child(1) {
-      background-color: #e74c3c;
-    }
-    .skills-grid .skill-box:nth-child(2) {
-      background-color: #3498db;
-    }
-    .skills-grid .skill-box:nth-child(3) {
-      background-color: #2ecc71;
-    }
-    .skills-grid .skill-box:nth-child(4) {
-      background-color: #9b59b6;
-    }
-    .skills-grid .skill-box:nth-child(5) {
-      background-color: #f39c12;
-    }
-    .skills-grid .skill-box:nth-child(6) {
-      background-color: #e67e22;
-    }
-    .skills-grid .skill-box:nth-child(7) {
-      background-color: #1abc9c;
-    }
-    .skills-grid .skill-box:nth-child(8) {
-      background-color: #34495e;
-    }
-    /* استجابة التصميم */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2.8rem;
-      }
-      nav {
-        flex-direction: column;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سيرة ذاتية | مهندس برمجيات</title>
+    
+    <!-- Tailwind CSS from jsdelivr -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts - Tajawal (Arabic) -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #6d28d9;
+            --secondary-color: #4f46e5;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        .bg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .progress-bar {
+            transition: width 1.5s ease-in-out;
+        }
+        
+        .card-3d {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .card-3d:hover {
+            transform: rotateY(10deg) rotateX(10deg);
+        }
+        
+        .highlight-line {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .highlight-line::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .highlight-line:hover::after {
+            width: 100%;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            opacity: 0.5;
+            animation: float 10s infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) rotate(0); }
+            25% { transform: translateY(-20px) translateX(10px) rotate(90deg); }
+            50% { transform: translateY(-35px) translateX(-10px) rotate(180deg); }
+            75% { transform: translateY(-20px) translateX(-20px) rotate(270deg); }
+            100% { transform: translateY(0) translateX(0) rotate(360deg); }
+        }
+        
+        .skill-bar {
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            background: #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-fill {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #6d28d9, #4f46e5);
+            position: relative;
+            transform: translateX(-100%);
+            animation: fillAnimation 1.5s forwards;
+        }
+        
+        @keyframes fillAnimation {
+            to { transform: translateX(0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
-<body>
-  <!-- استخدمت نص مختصر داخل الزر ليناسب الشكل الدائري -->
-  <button class="toggle-lang" onclick="toggleLanguage()">ع / En</button>
-  
-  <!-- النسخة الإنجليزية -->
-  <div class="en">
-    <header>
-      <h1>Abdallah Alqadi</h1>
-      <p>Creative Web Developer & Designer</p>
-      <div class="profile-container">
-        <img class="profile-img" src="https://th.bing.com/th/id/R.a031bc500d6df61853b30dfea1ab8631?rik=JMu3f7HC68letA&pid=ImgRaw&r=0" alt="Profile Picture">
-      </div>
-    </header>
-    <nav>
-      <a href="#about-en">About</a>
-      <a href="#experience-en">Experience</a>
-      <a href="#education-en">Education</a>
-      <a href="#skills-en">Skills</a>
-      <a href="#contact-en">Contact</a>
-      <a href="#projects-en">Projects</a>
-      <a href="#certifications-en">Certifications</a>
+<body class="bg-gray-100">
+    
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-purple-700">أحمد المطور</div>
+                <div class="hidden md:flex space-x-8 rtl:space-x-reverse">
+                    <a href="#hero" class="text-gray-700 hover:text-purple-700 transition-colors">الرئيسية</a>
+                    <a href="#about" class="text-gray-700 hover:text-purple-700 transition-colors">نبذة عني</a>
+                    <a href="#skills" class="text-gray-700 hover:text-purple-700 transition-colors">المهارات</a>
+                    <a href="#experience" class="text-gray-700 hover:text-purple-700 transition-colors">الخبرات</a>
+                    <a href="#projects" class="text-gray-700 hover:text-purple-700 transition-colors">المشاريع</a>
+                    <a href="#contact" class="text-gray-700 hover:text-purple-700 transition-colors">تواصل معي</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-purple-700 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4">
+                <a href="#hero" class="block py-2 text-gray-700 hover:text-purple-700 transition-colors">الرئيسية</a>
+                <a href="#about" class="block py-2 text-gray-700 hover:text-purple-700 transition-colors">نبذة عني</a>
+                <a href="#skills" class="block py-2 text-gray-700 hover:text-purple-700 transition-colors">المهارات</a>
+                <a href="#experience" class="block py-2 text-gray-700 hover:text-purple-700 transition-colors">الخبرات</a>
+                <a href="#projects" class="block py-2 text-gray-700 hover:text-purple-700 transition-colors">المشاريع</a>
+                <a href="#contact" class="block py-2 text-gray-700 hover:text-purple-700 transition-colors">تواصل معي</a>
+            </div>
+        </div>
     </nav>
-    <div class="container">
-      <section id="about-en">
-        <div class="section-title"><i class="fas fa-user"></i> About Me</div>
-        <div class="section-card">
-          <div class="content">
-            <p>Passionate web developer with 5+ years of experience in creating dynamic, user-friendly websites. Skilled in HTML, CSS, JavaScript, and modern design techniques.</p>
-          </div>
-        </div>
-      </section>
-      <section id="experience-en">
-        <div class="section-title"><i class="fas fa-briefcase"></i> Experience</div>
-        <div class="section-card">
-          <div class="content">
-            <p><strong>Senior Web Developer at XYZ Company</strong> (2018 - Present)</p>
-            <p>Leading a team in designing responsive and innovative web solutions.</p>
-            <p><strong>Web Developer at ABC Solutions</strong> (2015 - 2018)</p>
-            <p>Worked on multiple projects enhancing UI/UX and optimizing performance.</p>
-          </div>
-        </div>
-      </section>
-      <section id="education-en">
-        <div class="section-title"><i class="fas fa-graduation-cap"></i> Education</div>
-        <div class="section-card">
-          <div class="content">
-            <div class="timeline">
-              <div class="timeline-item">
-                <h3>Bachelor's in Computer Science</h3>
-                <p>University of Technology, 2015</p>
-              </div>
+    
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 overflow-hidden pt-16">
+        <div class="absolute inset-0 bg-pattern opacity-20"></div>
+        
+        <!-- Animated Particles -->
+        <div id="particles-container" class="absolute inset-0"></div>
+        
+        <div class="container mx-auto px-6 z-10">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 text-center md:text-right mb-10 md:mb-0">
+                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-4" data-aos="fade-up">أحمد المطور</h1>
+                    <div class="h-12">
+                        <h2 id="typing-text" class="text-2xl md:text-3xl font-medium text-white mb-8" data-aos="fade-up" data-aos-delay="200">مهندس برمجيات متخصص في تطوير الويب</h2>
+                    </div>
+                    <p class="text-xl text-white opacity-90 mb-10 max-w-lg mx-auto md:mx-0" data-aos="fade-up" data-aos-delay="400">
+                        مطور واجهات أمامية محترف مع خبرة في بناء مواقع تفاعلية عصرية وتطبيقات ويب متطورة
+                    </p>
+                    <div class="flex flex-wrap justify-center md:justify-start space-x-4 rtl:space-x-reverse" data-aos="fade-up" data-aos-delay="600">
+                        <a href="#contact" class="px-8 py-3 bg-white text-purple-700 rounded-full font-bold hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl mb-4 md:mb-0">
+                            تواصل معي
+                            <i class="fas fa-arrow-left mr-2"></i>
+                        </a>
+                        <a href="#projects" class="px-8 py-3 bg-purple-800 text-white rounded-full font-bold hover:bg-purple-900 transition duration-300 shadow-lg hover:shadow-xl border-2 border-purple-400">
+                            مشاريعي
+                            <i class="fas fa-th mr-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 flex justify-center" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 floating">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-pink-500 to-purple-600 rounded-full opacity-20 animate-pulse"></div>
+                        <div class="absolute inset-4 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-code text-9xl"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
-      <section id="skills-en">
-        <div class="section-title"><i class="fas fa-code"></i> Skills</div>
-        <div class="section-card">
-          <div class="content">
-            <div class="skills-grid">
-              <div class="skill-box">HTML5</div>
-              <div class="skill-box">CSS3</div>
-              <div class="skill-box">JavaScript</div>
-              <div class="skill-box">React</div>
-              <div class="skill-box">Node.js</div>
-              <div class="skill-box">CSS Animations</div>
-              <div class="skill-box">Responsive Design</div>
-              <div class="skill-box">UX/UI Design</div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="w-12 h-12 bg-white bg-opacity-30 rounded-full flex items-center justify-center text-white hover:bg-opacity-40 transition duration-300">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold inline-block relative" data-aos="fade-up">
+                    نبذة عني
+                    <div class="h-1 w-24 bg-purple-600 mx-auto mt-2"></div>
+                </h2>
             </div>
-          </div>
-        </div>
-      </section>
-      <section id="contact-en">
-        <div class="section-title"><i class="fas fa-envelope"></i> Contact</div>
-        <div class="section-card">
-          <div class="content">
-            <p>Email: john.doe@example.com</p>
-            <p>Phone: +1234567890</p>
-            <p>LinkedIn: linkedin.com/in/johndoe</p>
-          </div>
-        </div>
-      </section>
-      <section id="projects-en">
-        <div class="section-title"><i class="fas fa-project-diagram"></i> Projects</div>
-        <div class="section-card">
-          <div class="content">
-            <p><strong>Project A:</strong> Developed an innovative web application using React and Node.js, integrating real-time data and advanced animations.</p>
-            <p><strong>Project B:</strong> Created an e-commerce platform with a focus on responsive design and seamless user experience.</p>
-          </div>
-        </div>
-      </section>
-      <section id="certifications-en">
-        <div class="section-title"><i class="fas fa-certificate"></i> Certifications</div>
-        <div class="section-card">
-          <div class="content">
-            <p>Certified Web Developer by XYZ Institute</p>
-            <p>Advanced JavaScript Certificate from ABC Academy</p>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-  
-  <!-- النسخة العربية -->
-  <div class="ar">
-    <header>
-      <h1> عبدالله القاضي</h1>
-      <p>مطور ويب ومصمم مبدع</p>
-      <div class="profile-container">
-        <img class="profile-img" src="https://th.bing.com/th/id/R.a031bc500d6df61853b30dfea1ab8631?rik=JMu3f7HC68letA&pid=ImgRaw&r=0" alt="صورة الملف الشخصي">
-      </div>
-    </header>
-    <nav>
-      <a href="#about-ar">من أنا</a>
-      <a href="#experience-ar">الخبرة</a>
-      <a href="#education-ar">التعليم</a>
-      <a href="#skills-ar">المهارات</a>
-      <a href="#contact-ar">الاتصال</a>
-      <a href="#projects-ar">المشاريع</a>
-      <a href="#certifications-ar">الشهادات</a>
-    </nav>
-    <div class="container">
-      <section id="about-ar">
-        <div class="section-title"><i class="fas fa-user"></i> من أنا</div>
-        <div class="section-card">
-          <div class="content">
-            <p>مطور ويب شغوف يمتلك خبرة تزيد عن 5 سنوات في تصميم وتطوير مواقع تفاعلية وسهلة الاستخدام. ماهر في HTML، CSS، JavaScript وتقنيات التصميم الحديثة.</p>
-          </div>
-        </div>
-      </section>
-      <section id="experience-ar">
-        <div class="section-title"><i class="fas fa-briefcase"></i> الخبرة</div>
-        <div class="section-card">
-          <div class="content">
-            <p><strong>مطور ويب أول في شركة XYZ</strong> (2018 - حتى الآن)</p>
-            <p>قيادة فريق المطورين لتقديم حلول ويب مبتكرة وتفاعلية.</p>
-            <p><strong>مطور ويب في شركة ABC للحلول</strong> (2015 - 2018)</p>
-            <p>المشاركة في عدة مشاريع لتحسين واجهات المستخدم وزيادة الأداء.</p>
-          </div>
-        </div>
-      </section>
-      <section id="education-ar">
-        <div class="section-title"><i class="fas fa-graduation-cap"></i> التعليم</div>
-        <div class="section-card">
-          <div class="content">
-            <div class="timeline">
-              <div class="timeline-item">
-                <h3>بكالوريوس في علوم الحاسب</h3>
-                <p>جامعة التكنولوجيا، 2015</p>
-              </div>
+            
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-5/12 mb-10 md:mb-0" data-aos="fade-right">
+                    <div class="relative">
+                        <div class="w-64 h-64 mx-auto rounded-lg bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 transform rotate-3 shadow-xl"></div>
+                        <div class="w-64 h-64 mx-auto rounded-lg bg-gray-100 absolute inset-0 transform -rotate-3 flex items-center justify-center shadow-xl overflow-hidden border-4 border-white">
+                            <i class="fas fa-user-tie text-purple-600 text-7xl"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-7/12" data-aos="fade-left" data-aos-delay="200">
+                    <h3 class="text-2xl font-bold mb-4 text-purple-700">مهندس برمجيات متخصص</h3>
+                    <p class="text-xl leading-relaxed mb-6 text-gray-700">
+                        مهندس برمجيات ذو خبرة ٥ سنوات في تطوير واجهات المستخدم باستخدام HTML و CSS و JavaScript. متخصص في بناء مواقع تفاعلية سريعة وسهلة الاستخدام مع التركيز على تجربة المستخدم.
+                    </p>
+                    <p class="text-xl leading-relaxed mb-8 text-gray-700">
+                        عملت مع عدة شركات عالمية على تطوير منصات رقمية متكاملة. أتقن العمل ضمن فريق متكامل وأستطيع قيادة المشاريع من البداية حتى النهاية.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-600 text-xl ml-2"></i>
+                            <span>تطوير واجهات متقدمة</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-600 text-xl ml-2"></i>
+                            <span>تصميم مواقع متجاوبة</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-600 text-xl ml-2"></i>
+                            <span>تحسين أداء المواقع</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-600 text-xl ml-2"></i>
+                            <span>تطوير تطبيقات SPA</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">HTML5</span>
+                        <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">CSS3</span>
+                        <span class="px-4 py-2 bg-yellow-100 text-yellow-700 rounded-full text-sm font-medium">JavaScript</span>
+                        <span class="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium">React.js</span>
+                        <span class="px-4 py-2 bg-red-100 text-red-700 rounded-full text-sm font-medium">Vue.js</span>
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Node.js</span>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
-      <section id="skills-ar">
-        <div class="section-title"><i class="fas fa-code"></i> المهارات</div>
-        <div class="section-card">
-          <div class="content">
-            <div class="skills-grid">
-              <div class="skill-box">HTML5</div>
-              <div class="skill-box">CSS3</div>
-              <div class="skill-box">JavaScript</div>
-              <div class="skill-box">React</div>
-              <div class="skill-box">Node.js</div>
-              <div class="skill-box">تأثيرات CSS</div>
-              <div class="skill-box">تصميم متجاوب</div>
-              <div class="skill-box">تصميم UX/UI</div>
+    </section>
+    
+    <!-- Counter Section -->
+    <section class="py-16 bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center" data-aos="fade-up">
+                    <i class="fas fa-project-diagram text-4xl mb-3"></i>
+                    <div class="text-5xl font-bold mb-2" id="counter-projects">0</div>
+                    <p class="text-xl opacity-80">مشروع منجز</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-users text-4xl mb-3"></i>
+                    <div class="text-5xl font-bold mb-2" id="counter-clients">0</div>
+                    <p class="text-xl opacity-80">عميل سعيد</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-code text-4xl mb-3"></i>
+                    <div class="text-5xl font-bold mb-2" id="counter-code">0</div>
+                    <p class="text-xl opacity-80">سطر برمجي</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-award text-4xl mb-3"></i>
+                    <div class="text-5xl font-bold mb-2" id="counter-awards">0</div>
+                    <p class="text-xl opacity-80">جائزة</p>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
-      <section id="contact-ar">
-        <div class="section-title"><i class="fas fa-envelope"></i> الاتصال</div>
-        <div class="section-card">
-          <div class="content">
-            <p>البريد الإلكتروني: john.doe@example.com</p>
-            <p>الهاتف: +1234567890</p>
-            <p>لينكدإن: linkedin.com/in/johndoe</p>
-          </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold inline-block relative" data-aos="fade-up">
+                    مهاراتي
+                    <div class="h-1 w-24 bg-purple-600 mx-auto mt-2"></div>
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-6 text-purple-700">المهارات التقنية</h3>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold">HTML5 & CSS3</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold">JavaScript</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold">React.js</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold">Vue.js</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold">Node.js</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div data-aos="fade-left" data-aos-delay="200">
+                    <h3 class="text-2xl font-bold mb-6 text-purple-700">مهارات أخرى</h3>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 card-3d">
+                            <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-bezier-curve text-purple-600 text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">تصميم واجهات المستخدم</h4>
+                            <p class="text-gray-600">خبرة في تصميم واجهات مستخدم جذابة وسهلة الاستخدام مع التركيز على تجربة المستخدم.</p>
+                        </div>
+                        
+                        <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 card-3d">
+                            <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-mobile-alt text-blue-600 text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">تطوير متجاوب</h4>
+                            <p class="text-gray-600">تطوير مواقع متجاوبة تعمل بشكل مثالي على جميع الأجهزة والشاشات.</p>
+                        </div>
+                        
+                        <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 card-3d">
+                            <div class="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-tachometer-alt text-green-600 text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">تحسين الأداء</h4>
+                            <p class="text-gray-600">خبرة في تحسين أداء المواقع وزيادة سرعة التحميل والتفاعل.</p>
+                        </div>
+                        
+                        <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 card-3d">
+                            <div class="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-users-cog text-red-600 text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">قيادة الفريق</h4>
+                            <p class="text-gray-600">القدرة على قيادة فرق التطوير وإدارة المشاريع بكفاءة عالية.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </section>
-      <section id="projects-ar">
-        <div class="section-title"><i class="fas fa-project-diagram"></i> المشاريع</div>
-        <div class="section-card">
-          <div class="content">
-            <p><strong>المشروع أ:</strong> تم تطوير تطبيق ويب مبتكر باستخدام React و Node.js مع دمج البيانات الفعلية وتأثيرات متقدمة.</p>
-            <p><strong>المشروع ب:</strong> إنشاء منصة للتجارة الإلكترونية مع التركيز على تصميم متجاوب وتجربة مستخدم سلسة.</p>
-          </div>
+    </section>
+    
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold inline-block relative" data-aos="fade-up">
+                    خبراتي العملية
+                    <div class="h-1 w-24 bg-purple-600 mx-auto mt-2"></div>
+                </h2>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <!-- Timeline -->
+                <div class="relative">
+                    <!-- Line -->
+                    <div class="absolute h-full w-1 bg-purple-200 right-5 md:right-1/2"></div>
+                    
+                    <!-- Items -->
+                    <div class="space-y-12">
+                        <!-- Job 1 -->
+                        <div class="relative" data-aos="fade-up">
+                            <div class="absolute w-10 h-10 bg-purple-600 rounded-full right-[0.5px] md:right-[calc(50%-20px)] top-0 flex items-center justify-center z-10">
+                                <i class="fas fa-briefcase text-white"></i>
+                            </div>
+                            
+                            <div class="flex flex-col md:flex-row items-start mr-12 md:mr-0">
+                                <div class="hidden md:block md:w-1/2 md:pl-12 text-left"></div>
+                                <div class="md:w-1/2 md:pr-12 p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition duration-300 border-r-4 border-purple-600">
+                                    <span class="inline-block px-4 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">2020 - حتى الآن</span>
+                                    <h3 class="text-2xl font-bold mb-2">مطور واجهات أمامية رئيسي</h3>
+                                    <h4 class="text-xl text-purple-600 mb-4">شركة التقنية العالمية</h4>
+                                    <p class="mb-4 text-gray-700">
+                                        قيادة فريق من 5 مطورين لبناء منصات رقمية متكاملة. تطوير وتحسين البنية التحتية للواجهات الأمامية وتطبيق أفضل الممارسات.
+                                    </p>
+                                    <ul class="list-disc list-inside text-gray-700">
+                                        <li>تصميم وتنفيذ هيكلة الكود للمشاريع الجديدة</li>
+                                        <li>تطوير نظام تصميم موحد للشركة</li>
+                                        <li>تحسين أداء المواقع بنسبة 40%</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Job 2 -->
+                        <div class="relative" data-aos="fade-up" data-aos-delay="100">
+                            <div class="absolute w-10 h-10 bg-purple-600 rounded-full right-[0.5px] md:right-[calc(50%-20px)] top-0 flex items-center justify-center z-10">
+                                <i class="fas fa-briefcase text-white"></i>
+                            </div>
+                            
+                            <div class="flex flex-col md:flex-row items-start mr-12 md:mr-0">
+                                <div class="md:w-1/2 md:pr-12 p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition duration-300 border-r-4 border-purple-600 md:border-r-0 md:border-l-4">
+                                    <span class="inline-block px-4 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">2018 - 2020</span>
+                                    <h3 class="text-2xl font-bold mb-2">مطور واجهات أمامية</h3>
+                                    <h4 class="text-xl text-purple-600 mb-4">شركة الإبداع الرقمي</h4>
+                                    <p class="mb-4 text-gray-700">
+                                        تطوير مواقع وتطبيقات ويب متكاملة باستخدام React و Vue. التعاون مع فريق التصميم لتحويل التصاميم إلى صفحات تفاعلية.
+                                    </p>
+                                    <ul class="list-disc list-inside text-gray-700">
+                                        <li>بناء 15+ موقع تفاعلي لعملاء مختلفين</li>
+                                        <li>تطوير مكونات قابلة لإعادة الاستخدام</li>
+                                        <li>تحسين عمليات CI/CD للفريق</li>
+                                    </ul>
+                                </div>
+                                <div class="hidden md:block md:w-1/2 md:pl-12"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Job 3 -->
+                        <div class="relative" data-aos="fade-up" data-aos-delay="200">
+                            <div class="absolute w-10 h-10 bg-purple-600 rounded-full right-[0.5px] md:right-[calc(50%-20px)] top-0 flex items-center justify-center z-10">
+                                <i class="fas fa-briefcase text-white"></i>
+                            </div>
+                            
+                            <div class="flex flex-col md:flex-row items-start mr-12 md:mr-0">
+                                <div class="hidden md:block md:w-1/2 md:pl-12 text-left"></div>
+                                <div class="md:w-1/2 md:pr-12 p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition duration-300 border-r-4 border-purple-600">
+                                    <span class="inline-block px-4 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-4">2017 - 2018</span>
+                                    <h3 class="text-2xl font-bold mb-2">مطور ويب مبتدئ</h3>
+                                    <h4 class="text-xl text-purple-600 mb-4">شركة الحلول البرمجية</h4>
+                                    <p class="mb-4 text-gray-700">
+                                        بناء وتطوير مواقع ويب تفاعلية باستخدام HTML و CSS و JavaScript. المساهمة في مشاريع متنوعة وتعلم أفضل الممارسات.
+                                    </p>
+                                    <ul class="list-disc list-inside text-gray-700">
+                                        <li>تطوير 10+ مواقع ويب تجارية</li>
+                                        <li>التعامل مع APIs وربطها بواجهات المستخدم</li>
+                                        <li>تحسين أداء المواقع وجعلها متوافقة مع مختلف المتصفحات</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </section>
-      <section id="certifications-ar">
-        <div class="section-title"><i class="fas fa-certificate"></i> الشهادات</div>
-        <div class="section-card">
-          <div class="content">
-            <p>شهادة مطور ويب معتمد من معهد XYZ</p>
-            <p>شهادة JavaScript متقدمة من أكاديمية ABC</p>
-          </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-gray-50 overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold inline-block relative" data-aos="fade-up">
+                    مشاريعي
+                    <div class="h-1 w-24 bg-purple-600 mx-auto mt-2"></div>
+                </h2>
+            </div>
+            
+            <div class="flex mb-8 justify-center" data-aos="fade-up">
+                <button class="filter-btn active px-4 py-2 mx-2 rounded-full" data-filter="all">الكل</button>
+                <button class="filter-btn px-4 py-2 mx-2 rounded-full" data-filter="web">تطوير ويب</button>
+                <button class="filter-btn px-4 py-2 mx-2 rounded-full" data-filter="app">تطبيقات</button>
+                <button class="filter-btn px-4 py-2 mx-2 rounded-full" data-filter="ui">واجهات مستخدم</button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 project-grid">
+                <!-- Project 1 -->
+                <div class="group project-item bg-white rounded-xl overflow-hidden shadow-lg" data-category="web" data-aos="zoom-in">
+                    <div class="relative overflow-hidden h-60 bg-purple-600 flex items-center justify-center">
+                        <i class="fas fa-shopping-cart text-white text-6xl"></i>
+                        <div class="absolute inset-0 bg-purple-800 bg-opacity-80 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                            <div>
+                                <a href="#" class="inline-block mx-2 w-12 h-12 rounded-full bg-white flex items-center justify-center text-purple-600 hover:bg-purple-100 transition duration-300">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                                <a href="#" class="inline-block mx-2 w-12 h-12 rounded-full bg-white flex items-center justify-center text-purple-600 hover:bg-purple-100 transition duration-300">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 hover:text-purple-600 transition duration-300">منصة تسوق إلكتروني</h3>
+                        <p class="text-gray-700 mb-4">منصة متكاملة للتسوق الإلكتروني بواجهة سهلة الاستخدام ونظام دفع آمن.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">React</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">Redux</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Node.js</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="group project-item bg-white rounded-xl overflow-hidden shadow-lg" data-category="app" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="relative overflow-hidden h-60 bg-blue-600 flex items-center justify-center">
+                        <i class="fas fa-chart-line text-white text-6xl"></i>
+                        <div class="absolute inset-0 bg-blue-800 bg-opacity-80 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                            <div>
+                                <a href="#" class="inline-block mx-2 w-12 h-12 rounded-full bg-white flex items-center justify-center text-blue-600 hover:bg-blue-100 transition duration-300">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                                <a href="#" class="inline-block mx-2 w-12 h-12 rounded-full bg-white flex items-center justify-center text-blue-600 hover:bg-blue-100 transition duration-300">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 hover:text-blue-600 transition duration-300">لوحة تحكم تحليلية</h3>
+                        <p class="text-gray-700 mb-4">لوحة تحكم متقدمة لعرض البيانات التحليلية بشكل بصري وتفاعلي.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">Vue.js</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">D3.js</span>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="group project-item bg-white rounded-xl overflow-hidden shadow-lg" data-category="app ui" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="relative overflow-hidden h-60 bg-green-600 flex items-center justify-center">
+                        <i class="fas fa-comments text-white text-6xl"></i>
+                        <div class="absolute inset-0 bg-green-800 bg-opacity-80 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                            <div>
+                                <a href="#" class="inline-block mx-2 w-12 h-12 rounded-full bg-white flex items-center justify-center text-green-600 hover:bg-green-100 transition duration-300">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                                <a href="#" class="inline-block mx-2 w-12 h-12 rounded-full bg-white flex items-center justify-center text-green-600 hover:bg-green-100 transition duration-300">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 hover:text-green-600 transition duration-300">تطبيق محادثة فوري</h3>
+                        <p class="text-gray-700 mb-4">منصة محادثة في الوقت الفعلي مع دعم الرسائل النصية والصوتية والفيديو.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">React</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">WebRTC</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">Socket.io</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="group project-item bg-white rounded-xl overflow-hidden shadow-lg" data-category="ui" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="relative overflow-hidden h-60 bg-pink-600 flex items-center justify-center">
+                        <i class="fas fa-mobile-alt text-white text-6xl"></i>
+                        <div class="absolute inset-0 bg-pink-800 bg-opacity-80 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                            <div>
+                                <a href="#" class="inline-block mx-2 w-12 h-12 rounded-full bg-white flex items-center justify-center text-pink-600 hover:bg-pink-100 transition duration-300">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                                <a href="#" class="inline-block mx-2 w-12 h-12 rounded-full bg-white flex items-center justify-center text-pink-600 hover:bg-pink-100 transition duration-300">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 hover:text-pink-600 transition duration-300">تصميم تطبيق جوال</h3>
+                        <p class="text-gray-700 mb-4">تصميم واجهة مستخدم متطورة لتطبيق جوال مع تجربة مستخدم فريدة.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm">Figma</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">UI/UX</span>
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">Prototyping</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="group project-item bg-white rounded-xl overflow-hidden shadow-lg" data-category="web ui" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="relative overflow-hidden h-60 bg-indigo-600 flex items-center justify-center">
+                        <i class="fas fa-university text-white text-6xl"></i>
+                        <div class="absolute inset-0 bg-indigo-800 bg-opacity-80 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                            <div>
+                                <a href="#" class="inline-block mx-2 w-12 h-12 rounded-full bg-white flex items-center justify-center text-indigo-600 hover:bg-indigo-100 transition duration-300">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                                <a href="#" class="inline-block mx-2 w-12 h-12 rounded-full bg-white flex items-center justify-center text-indigo-600 hover:bg-indigo-100 transition duration-300">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 hover:text-indigo-600 transition duration-300">موقع بنك رقمي</h3>
+                        <p class="text-gray-700 mb-4">موقع ويب متكامل لبنك رقمي مع لوحة تحكم للمستخدمين وميزات أمان متقدمة.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">React</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Node.js</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">Express</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="group project-item bg-white rounded-xl overflow-hidden shadow-lg" data-category="web" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="relative overflow-hidden h-60 bg-yellow-500 flex items-center justify-center">
+                        <i class="fas fa-utensils text-white text-6xl"></i>
+                        <div class="absolute inset-0 bg-yellow-800 bg-opacity-80 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                            <div>
+                                <a href="#" class="inline-block mx-2 w-12 h-12 rounded-full bg-white flex items-center justify-center text-yellow-600 hover:bg-yellow-100 transition duration-300">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                                <a href="#" class="inline-block mx-2 w-12 h-12 rounded-full bg-white flex items-center justify-center text-yellow-600 hover:bg-yellow-100 transition duration-300">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 hover:text-yellow-600 transition duration-300">منصة توصيل طعام</h3>
+                        <p class="text-gray-700 mb-4">منصة متكاملة لطلب وتوصيل الطعام مع نظام تتبع للطلبات في الوقت الفعلي.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm">Vue.js</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">Firebase</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">Geolocation API</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </section>
-    </div>
-  </div>
-  
-  <script>
-    function toggleLanguage() {
-      var enSection = document.querySelector('.en');
-      var arSection = document.querySelector('.ar');
-      if (enSection.style.display === 'none' || enSection.style.display === '') {
-        enSection.style.display = 'block';
-        arSection.style.display = 'none';
-      } else {
-        enSection.style.display = 'none';
-        arSection.style.display = 'block';
-      }
-    }
-    // عرض النسخة الإنجليزية بشكل افتراضي
-    document.querySelector('.en').style.display = 'block';
-    document.querySelector('.ar').style.display = 'none';
-  </script>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold inline-block relative" data-aos="fade-up">
+                    آراء العملاء
+                    <div class="h-1 w-24 bg-purple-600 mx-auto mt-2"></div>
+                </h2>
+            </div>
+            
+            <div class="max-w-6xl mx-auto">
+                <div class="testimonial-slider relative overflow-hidden" data-aos="fade-up">
+                    <div class="testimonial-track flex transition-transform duration-500 ease-in-out">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-slide min-w-full p-6">
+                            <div class="bg-white rounded-xl p-8 shadow-lg">
+                                <div class="flex items-center mb-6">
+                                    <div class="ml-4 text-center w-14 h-14 flex-shrink-0 bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                        س
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold">سارة أحمد</h4>
+                                        <p class="text-gray-600">المدير التنفيذي - شركة تقنية المستقبل</p>
+                                    </div>
+                                </div>
+                                <p class="text-xl text-gray-700 mb-6">
+                                    "عملنا مع أحمد على عدة مشاريع، وكانت تجربة رائعة. يتميز أحمد بالإحترافية والإلتزام وجودة العمل العالية. ساعدنا في تطوير منصتنا الرقمية التي لاقت إعجاب عملائنا."
+                                </p>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-slide min-w-full p-6">
+                            <div class="bg-white rounded-xl p-8 shadow-lg">
+                                <div class="flex items-center mb-6">
+                                    <div class="ml-4 text-center w-14 h-14 flex-shrink-0 bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                        م
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold">محمد ناصر</h4>
+                                        <p class="text-gray-600">مدير تقني - شركة الإبداع الرقمي</p>
+                                    </div>
+                                </div>
+                                <p class="text-xl text-gray-700 mb-6">
+                                    "أحمد مطور ممتاز ومبدع، استطاع أن يحول أفكارنا إلى واقع ملموس. أضاف لمسات إبداعية جعلت المنتج النهائي متميزاً. سعدنا بالعمل معه وبالتأكيد سنكرر التجربة."
+                                </p>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-slide min-w-full p-6">
+                            <div class="bg-white rounded-xl p-8 shadow-lg">
+                                <div class="flex items-center mb-6">
+                                    <div class="ml-4 text-center w-14 h-14 flex-shrink-0 bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                        ف
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold">فاطمة علي</h4>
+                                        <p class="text-gray-600">مؤسسة - شركة تطبيقات الذكية</p>
+                                    </div>
+                                </div>
+                                <p class="text-xl text-gray-700 mb-6">
+                                    "تعاملنا مع أحمد في تطوير واجهة تطبيقنا الجديد، وقد أبهرنا بمستوى الاحترافية والإبداع في العمل. النتيجة كانت أفضل مما توقعنا، وخصوصاً من ناحية التفاعل وسرعة الأداء."
+                                </p>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Controls -->
+                    <button class="testimonial-btn prev absolute top-1/2 right-2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-purple-700 hover:bg-purple-50 transition duration-300 z-10">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <button class="testimonial-btn next absolute top-1/2 left-2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-purple-700 hover:bg-purple-50 transition duration-300 z-10">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <!-- Indicators -->
+                    <div class="flex justify-center mt-8">
+                        <button class="testimonial-dot w-3 h-3 mx-1 rounded-full bg-purple-200 hover:bg-purple-400 transition duration-300 active"></button>
+                        <button class="testimonial-dot w-3 h-3 mx-1 rounded-full bg-purple-200 hover:bg-purple-400 transition duration-300"></button>
+                        <button class="testimonial-dot w-3 h-3 mx-1 rounded-full bg-purple-200 hover:bg-purple-400 transition duration-300"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-pattern opacity-10"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold inline-block relative" data-aos="fade-up">
+                    تواصل معي
+                    <div class="h-1 w-24 bg-white mx-auto mt-2"></div>
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-8">لنتحدث عن مشروعك</h3>
+                    
+                    <div class="flex items-center mb-8">
+                        <div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center ml-6">
+                            <i class="fas fa-envelope text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-white opacity-75 mb-1">البريد الإلكتروني</p>
+                            <a href="mailto:ahmed@example.com" class="text-xl hover:text-pink-200 transition duration-300">ahmed@example.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center mb-8">
+                        <div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center ml-6">
+                            <i class="fas fa-phone-alt text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-white opacity-75 mb-1">رقم الهاتف</p>
+                            <a href="tel:+966501234567" class="text-xl hover:text-pink-200 transition duration-300">+966 50 123 4567</a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center mb-12">
+                        <div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center ml-6">
+                            <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-white opacity-75 mb-1">الموقع</p>
+                            <p class="text-xl">الرياض، المملكة العربية السعودية</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4 rtl:space-x-reverse">
+                        <a href="#" class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300">
+                            <i class="fab fa-linkedin-in text-white"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300">
+                            <i class="fab fa-github text-white"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300">
+                            <i class="fab fa-twitter text-white"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300">
+                            <i class="fab fa-dribbble text-white"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div data-aos="fade-left" data-aos-delay="200">
+                    <div class="bg-white p-8 rounded-xl shadow-2xl">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">أرسل رسالة</h3>
+                        
+                        <form id="contact-form">
+                            <div class="mb-6">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">الاسم</label>
+                                <input class="w-full px-5 py-3 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600 text-gray-800" type="text" id="name" placeholder="أدخل اسمك">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">البريد الإلكتروني</label>
+                                <input class="w-full px-5 py-3 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600 text-gray-800" type="email" id="email" placeholder="أدخل بريدك الإلكتروني">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="subject">الموضوع</label>
+                                <input class="w-full px-5 py-3 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600 text-gray-800" type="text" id="subject" placeholder="أدخل موضوع الرسالة">
+                            </div>
+                            
+                            <div class="mb-8">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="message">الرسالة</label>
+                                <textarea class="w-full px-5 py-3 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600 h-36 text-gray-800" id="message" placeholder="أدخل رسالتك"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition duration-300 font-bold flex items-center justify-center">
+                                <span>إرسال الرسالة</span>
+                                <i class="fas fa-paper-plane mr-2"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-10 bg-gray-900 text-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-2xl font-bold text-white mb-6 md:mb-0">أحمد المطور</div>
+                
+                <div class="flex flex-col md:flex-row md:space-x-8 rtl:space-x-reverse text-center">
+                    <a href="#hero" class="mb-4 md:mb-0 hover:text-purple-400 transition duration-300">الرئيسية</a>
+                    <a href="#about" class="mb-4 md:mb-0 hover:text-purple-400 transition duration-300">نبذة عني</a>
+                    <a href="#skills" class="mb-4 md:mb-0 hover:text-purple-400 transition duration-300">المهارات</a>
+                    <a href="#experience" class="mb-4 md:mb-0 hover:text-purple-400 transition duration-300">الخبرات</a>
+                    <a href="#projects" class="mb-4 md:mb-0 hover:text-purple-400 transition duration-300">المشاريع</a>
+                    <a href="#contact" class="hover:text-purple-400 transition duration-300">تواصل معي</a>
+                </div>
+            </div>
+            
+            <hr class="border-gray-800 my-8">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p>&copy; 2023 جميع الحقوق محفوظة | مهندس برمجيات</p>
+                <p class="mt-4 md:mt-0">تم تطويره بواسطة <span class="text-purple-500">أحمد المطور</span></p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <a href="#hero" id="back-to-top" class="fixed bottom-8 left-8 w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('shadow-md', 'bg-white');
+            } else {
+                navbar.classList.remove('shadow-md', 'bg-white');
+            }
+            
+            // Back to top button visibility
+            const backToTop = document.getElementById('back-to-top');
+            if (window.scrollY > 500) {
+                backToTop.classList.remove('opacity-0', 'invisible');
+                backToTop.classList.add('opacity-100', 'visible');
+            } else {
+                backToTop.classList.add('opacity-0', 'invisible');
+                backToTop.classList.remove('opacity-100', 'visible');
+            }
+        });
+        
+        // Typing effect
+        const typingTextElement = document.getElementById('typing-text');
+        const texts = ["مهندس برمجيات متخصص في HTML/CSS/JavaScript", "مطور واجهات أمامية", "مصمم تجربة المستخدم", "مطور ويب كامل"];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+        
+        function typeEffect() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingTextElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+            } else {
+                typingTextElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 100;
+            }
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                typingSpeed = 1500;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typingSpeed = 500;
+            }
+            
+            setTimeout(typeEffect, typingSpeed);
+        }
+        
+        setTimeout(typeEffect, 1000);
+        
+        // Project filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectItems = document.querySelectorAll('.project-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Set active button
+                filterButtons.forEach(btn => btn.classList.remove('active', 'bg-purple-600', 'text-white'));
+                button.classList.add('active', 'bg-purple-600', 'text-white');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                projectItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category').includes(filterValue)) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // Set initial active button
+        filterButtons[0].classList.add('active', 'bg-purple-600', 'text-white');
+        
+        // Testimonial slider functionality
+        const testimonialTrack = document.querySelector('.testimonial-track');
+        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+        const prevButton = document.querySelector('.testimonial-btn.prev');
+        const nextButton = document.querySelector('.testimonial-btn.next');
+        const dots = document.querySelectorAll('.testimonial-dot');
+        
+        let testimonialIndex = 0;
+        const slideWidth = 100; // percentage
+        
+        function updateTestimonialSlider() {
+            testimonialTrack.style.transform = `translateX(${testimonialIndex * slideWidth}%)`;
+            
+            // Update active dot
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('bg-purple-600', i === testimonialIndex);
+                dot.classList.toggle('bg-purple-200', i !== testimonialIndex);
+            });
+        }
+        
+        nextButton.addEventListener('click', () => {
+            testimonialIndex = (testimonialIndex + 1) % testimonialSlides.length;
+            updateTestimonialSlider();
+        });
+        
+        prevButton.addEventListener('click', () => {
+            testimonialIndex = (testimonialIndex - 1 + testimonialSlides.length) % testimonialSlides.length;
+            updateTestimonialSlider();
+        });
+        
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                testimonialIndex = i;
+                updateTestimonialSlider();
+            });
+        });
+        
+        // Auto-advance testimonials
+        setInterval(() => {
+            testimonialIndex = (testimonialIndex + 1) % testimonialSlides.length;
+            updateTestimonialSlider();
+        }, 6000);
+        
+        // Contact form handling
+        const contactForm = document.getElementById('contact-form');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simulate form submission
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> جاري الإرسال...';
+            submitButton.disabled = true;
+            
+            setTimeout(() => {
+                submitButton.innerHTML = '<i class="fas fa-check mr-2"></i> تم الإرسال بنجاح';
+                submitButton.classList.remove('from-purple-600', 'to-indigo-600');
+                submitButton.classList.add('from-green-600', 'to-green-700');
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Reset button after a delay
+                setTimeout(() => {
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('from-green-600', 'to-green-700');
+                    submitButton.classList.add('from-purple-600', 'to-indigo-600');
+                }, 3000);
+            }, 2000);
+        });
+        
+        // Animated counters
+        function animateCounter(elementId, target, duration) {
+            const element = document.getElementById(elementId);
+            const increment = target / (duration / 16); // 16ms per frame
+            let current = 0;
+            
+            const interval = setInterval(() => {
+                current += increment;
+                element.textContent = Math.floor(current);
+                
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(interval);
+                }
+            }, 16);
+        }
+        
+        // Start counter animations when they come into view
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter('counter-projects', 45, 2000);
+                    animateCounter('counter-clients', 32, 2000);
+                    animateCounter('counter-code', 50000, 3000);
+                    animateCounter('counter-awards', 12, 2000);
+                    counterObserver.disconnect();
+                }
+            });
+        });
+        
+        counterObserver.observe(document.getElementById('counter-projects'));
+        
+        // Create particles for hero section
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position and size
+                const size = Math.random() * 10 + 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        createParticles();
+    </script>
 </body>
 </html>
